@@ -11,13 +11,13 @@ struct Product {
 
 void addProduct(std::vector<Product>& products) {
     Product newProduct;
-    std::cout << "Enter product name: ";
+    std::cout << "Masukkan nama produk: ";
     std::cin >> newProduct.name;
-    std::cout << "Enter product ID: ";
+    std::cout << "Masukkan ID produk: ";
     std::cin >> newProduct.id;
-    std::cout << "Enter quantity: ";
+    std::cout << "Masukkan jumlah: ";
     std::cin >> newProduct.quantity;
-    std::cout << "Enter price: ";
+    std::cout << "Masukkan harga: ";
     std::cin >> newProduct.price;
     products.push_back(newProduct);
 }
@@ -25,32 +25,32 @@ void addProduct(std::vector<Product>& products) {
 void displayProducts(const std::vector<Product>& products) {
     for (const auto& product : products) {
         std::cout << "ID: " << product.id
-                  << ", Name: " << product.name
-                  << ", Quantity: " << product.quantity
-                  << ", Price: " << product.price << std::endl;
+                  << ", Nama: " << product.name
+                  << ", Jumlah: " << product.quantity
+                  << ", Harga: " << product.price << std::endl;
     }
 }
 
 void updateProduct(std::vector<Product>& products, int id) {
     for (auto& product : products) {
         if (product.id == id) {
-            std::cout << "Enter new quantity: ";
+            std::cout << "Masukkan jumlah baru: ";
             std::cin >> product.quantity;
             return;
         }
     }
-    std::cout << "Product not found.\n";
+    std::cout << "Produk tidak ditemukan.\n";
 }
 
 void deleteProduct(std::vector<Product>& products, int id) {
     for (auto it = products.begin(); it != products.end(); ++it) {
         if (it->id == id) {
             products.erase(it);
-            std::cout << "Product with ID " << id << " has been deleted.\n";
+            std::cout << "Produk dengan ID " << id << " telah dihapus.\n";
             return;
         }
     }
-    std::cout << "Product not found.\n";
+    std::cout << "Produk tidak ditemukan.\n";
 }
 
 int main() {
@@ -59,12 +59,12 @@ int main() {
 
     while (true) {
         std::cout << "\nMenu:\n";
-        std::cout << "1. Add Product\n";
-        std::cout << "2. Display Products\n";
-        std::cout << "3. Update Product\n";
-        std::cout << "4. Delete Product\n";
-        std::cout << "5. Exit\n";
-        std::cout << "Enter your choice: ";
+        std::cout << "1. Tambah Produk\n";
+        std::cout << "2. Tampilkan Produk\n";
+        std::cout << "3. Perbarui Produk\n";
+        std::cout << "4. Hapus Produk\n";
+        std::cout << "5. Keluar\n";
+        std::cout << "Masukkan pilihan Anda: ";
         std::cin >> choice;
 
         switch (choice) {
@@ -76,22 +76,27 @@ int main() {
                 break;
             case 3: {
                 int id;
-                std::cout << "Enter product ID to update: ";
+                std::cout << "Masukkan ID produk yang akan diperbarui: ";
                 std::cin >> id;
                 updateProduct(products, id);
                 break;
             }
             case 4: {
                 int id;
-                std::cout << "Enter product ID to delete: ";
+                std::cout << "Masukkan ID produk yang akan dihapus: ";
                 std::cin >> id;
                 deleteProduct(products, id);
                 break;
             }
             case 5:
-                std::cout << "Exiting program...\n";
+                std::cout << "Keluar dari program...\n";
                 return 0;
             default:
+                std::cout << "Pilihan tidak valid, coba lagi.\n";
+        }
+    }
+}
+
                 std::cout << "Invalid choice, please try again.\n";
         }
     }
