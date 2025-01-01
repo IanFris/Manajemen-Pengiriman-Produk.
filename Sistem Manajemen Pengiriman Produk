@@ -1,0 +1,98 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+struct Product {
+    std::string name;
+    int id;
+    int quantity;
+    float price;
+};
+
+void addProduct(std::vector<Product>& products) {
+    Product newProduct;
+    std::cout << "Enter product name: ";
+    std::cin >> newProduct.name;
+    std::cout << "Enter product ID: ";
+    std::cin >> newProduct.id;
+    std::cout << "Enter quantity: ";
+    std::cin >> newProduct.quantity;
+    std::cout << "Enter price: ";
+    std::cin >> newProduct.price;
+    products.push_back(newProduct);
+}
+
+void displayProducts(const std::vector<Product>& products) {
+    for (const auto& product : products) {
+        std::cout << "ID: " << product.id
+                  << ", Name: " << product.name
+                  << ", Quantity: " << product.quantity
+                  << ", Price: " << product.price << std::endl;
+    }
+}
+
+void updateProduct(std::vector<Product>& products, int id) {
+    for (auto& product : products) {
+        if (product.id == id) {
+            std::cout << "Enter new quantity: ";
+            std::cin >> product.quantity;
+            return;
+        }
+    }
+    std::cout << "Product not found.\n";
+}
+
+void deleteProduct(std::vector<Product>& products, int id) {
+    for (auto it = products.begin(); it != products.end(); ++it) {
+        if (it->id == id) {
+            products.erase(it);
+            std::cout << "Product with ID " << id << " has been deleted.\n";
+            return;
+        }
+    }
+    std::cout << "Product not found.\n";
+}
+
+int main() {
+    std::vector<Product> products;
+    int choice;
+
+    while (true) {
+        std::cout << "\nMenu:\n";
+        std::cout << "1. Add Product\n";
+        std::cout << "2. Display Products\n";
+        std::cout << "3. Update Product\n";
+        std::cout << "4. Delete Product\n";
+        std::cout << "5. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addProduct(products);
+                break;
+            case 2:
+                displayProducts(products);
+                break;
+            case 3: {
+                int id;
+                std::cout << "Enter product ID to update: ";
+                std::cin >> id;
+                updateProduct(products, id);
+                break;
+            }
+            case 4: {
+                int id;
+                std::cout << "Enter product ID to delete: ";
+                std::cin >> id;
+                deleteProduct(products, id);
+                break;
+            }
+            case 5:
+                std::cout << "Exiting program...\n";
+                return 0;
+            default:
+                std::cout << "Invalid choice, please try again.\n";
+        }
+    }
+}
